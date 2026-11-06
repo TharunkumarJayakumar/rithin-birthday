@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advance Happy Birthday Rithin! 🔭🌌✨</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti with Star Shapes Support -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: Space Grotesk, Outfit, and Great Vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
+            script: ['Great Vibes', 'cursive'],
+          },
+          animation: {
+            'spin-celestial': 'spinCelestial 120s linear infinite',
+            'spin-reverse': 'spinReverse 90s linear infinite',
+            'pulse-glow': 'cosmicPulse 3s ease-in-out infinite',
+            'float-slow': 'floatCosmic 7s ease-in-out infinite',
+            'wiggle': 'wiggle 1.2s ease-in-out infinite',
+          },
+          keyframes: {
+            spinCelestial: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            },
+            spinReverse: {
+              '0%': { transform: 'rotate(360deg)' },
+              '100%': { transform: 'rotate(0deg)' },
+            },
+            cosmicPulse: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 15px rgba(56, 189, 248, 0.5)) drop-shadow(0 0 35px rgba(168, 85, 247, 0.3))' },
+              '50%': { filter: 'drop-shadow(0 0 28px rgba(236, 72, 153, 0.7)) drop-shadow(0 0 55px rgba(56, 189, 248, 0.6))' },
+            },
+            floatCosmic: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-12px) rotate(2deg)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-5deg)' },
+              '50%': { transform: 'rotate(5deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      background-color: #02040a;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    /* True Dark Sky Obsidian Space Background */
+    .dark-sky-bg {
+      background: radial-gradient(circle at 50% 15%, #050b1a 0%, #02040a 60%, #010206 100%);
+    }
+
+    /* Stargate / Celestial Glass Card */
+    .stargate-card {
+      background: rgba(4, 8, 20, 0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 0 50px rgba(14, 165, 233, 0.15), 
+                  0 0 100px rgba(147, 51, 234, 0.1), 
+                  inset 0 0 25px rgba(56, 189, 248, 0.06);
+    }
+
+    /* Celestial Plasma Candle Flame */
+    .plasma-flame {
+      background: radial-gradient(ellipse at bottom, #ffffff 0%, #67e8f9 35%, #818cf8 70%, #c084fc 100%);
+      box-shadow: 0 0 16px #38bdf8, 0 0 32px #a855f7;
+      animation: plasmaFlicker 0.7s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+
+    @keyframes plasmaFlicker {
+      0% { transform: scale(1) rotate(-1.5deg); opacity: 0.9; }
+      100% { transform: scale(1.15) rotate(1.5deg); opacity: 1; filter: brightness(1.25); }
+    }
+
+    .plasma-flame.extinguished {
+      opacity: 0 !important;
+      transform: scale(0.1) translateY(-12px) !important;
+      transition: all 0.4s ease-out;
+    }
+
+    /* Cosmic Stardust Smoke */
+    .stardust-smoke {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background: rgba(147, 197, 253, 0.85);
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 10px #38bdf8;
+      animation: stardustPuff 1.3s ease-out forwards;
+    }
+
+    @keyframes stardustPuff {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+      100% { transform: translate(14px, -40px) scale(3.5); opacity: 0; filter: blur(4px); }
+    }
+
+    /* Celestial Coordinate Astrolabe Overlay in Background */
+    .celestial-dial {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: min(120vw, 120vh);
+      height: min(120vw, 120vh);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0.22;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body class="dark-sky-bg min-h-screen text-slate-100 font-sans overflow-x-hidden relative flex flex-col items-center justify-center p-4">
+
+  <!-- ==================== FULLSCREEN ASTROPHYSICS & ZODIAC SKY CANVAS ==================== -->
+  <canvas id="skyMapCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Celestial Coordinate Sphere & Zodiac Astrolabe Overlay -->
+  <div class="celestial-dial animate-spin-celestial select-none">
+    <svg viewBox="0 0 1000 1000" class="w-full h-full text-cyan-400" fill="none" stroke="currentColor">
+      <!-- Outer Zodiac / Ecliptic Coordinate Ring -->
+      <circle cx="500" cy="500" r="480" stroke-width="1" stroke-dasharray="2 6" opacity="0.6"/>
+      <circle cx="500" cy="500" r="455" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="500" cy="500" r="430" stroke-width="0.8" stroke-dasharray="4 8" opacity="0.5"/>
+
+      <!-- Degree Ticks (Every 30 degrees for Zodiac Houses) -->
+      <g stroke-width="1.5" opacity="0.7">
+        <line x1="500" y1="20" x2="500" y2="70"/>
+        <line x1="500" y1="930" x2="500" y2="980"/>
+        <line x1="20" y1="500" x2="70" y2="500"/>
+        <line x1="930" y1="500" x2="980" y2="500"/>
+        <line x1="160" y1="160" x2="195" y2="195"/>
+        <line x1="805" y1="805" x2="840" y2="840"/>
+        <line x1="160" y1="840" x2="195" y2="805"/>
+        <line x1="805" y1="195" x2="840" y2="160"/>
+      </g>
+
+      <!-- Faint Astronomical Right Ascension Radial Lines -->
+      <g stroke-width="0.6" stroke-dasharray="3 7" opacity="0.35">
+        <line x1="500" y1="500" x2="500" y2="50"/>
+        <line x1="500" y1="500" x2="725" y2="110"/>
+        <line x1="500" y1="500" x2="890" y2="275"/>
+        <line x1="500" y1="500" x2="950" y2="500"/>
+        <line x1="500" y1="500" x2="890" y2="725"/>
+        <line x1="500" y1="500" x2="725" y2="890"/>
+        <line x1="500" y1="500" x2="500" y2="950"/>
+        <line x1="500" y1="500" x2="275" y2="890"/>
+        <line x1="500" y1="500" x2="110" y2="725"/>
+        <line x1="500" y1="500" x2="50" y2="500"/>
+        <line x1="500" y1="500" x2="110" y2="275"/>
+        <line x1="500" y1="500" x2="275" y2="110"/>
+      </g>
+
+      <!-- Celestial Declination Concentric Rings -->
+      <circle cx="500" cy="500" r="320" stroke-width="0.8" stroke-dasharray="3 6" opacity="0.4"/>
+      <circle cx="500" cy="500" r="200" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.3"/>
+      <circle cx="500" cy="500" r="80" stroke-width="0.8" opacity="0.25"/>
+
+      <!-- Zodiac Symbols Ring Markings -->
+      <text x="500" y="58" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♈ ARIES</text>
+      <text x="735" y="125" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♉ TAURUS</text>
+      <text x="905" y="295" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♊ GEMINI</text>
+      <text x="945" y="508" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♋ CANCER</text>
+      <text x="895" y="730" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♌ LEO</text>
+      <text x="725" y="900" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♍ VIRGO</text>
+      <text x="500" y="960" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♎ LIBRA</text>
+      <text x="270" y="900" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♏ SCORPIO</text>
+      <text x="100" y="730" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♐ SAGITTARIUS</text>
+      <text x="55" y="508" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♑ CAPRICORN</text>
+      <text x="100" y="295" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♒ AQUARIUS</text>
+      <text x="270" y="125" text-anchor="middle" fill="#67e8f9" font-family="Space Grotesk, monospace" font-size="22" opacity="0.85">♓ PISCES</text>
+    </svg>
+  </div>
+
+  <!-- Audio control badge -->
+  <div class="fixed top-4 right-4 z-50">
+    <button id="soundToggleBtn" onclick="toggleMute()" class="stargate-card px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold flex items-center space-x-1.5 hover:bg-white/10 transition shadow-lg border border-cyan-400/40 text-cyan-200">
+      <span id="soundIcon">🔊</span>
+      <span id="soundLabel">Cosmic Sound</span>
+    </button>
+  </div>
+
+  <!-- Realtime Stargazing Telemetry HUD (Corner Badges) -->
+  <div class="fixed bottom-3 left-4 z-40 hidden md:block text-[11px] font-mono text-cyan-400/70 pointer-events-none">
+    <div>🔭 DEEP SKY OBSERVATORY // EPOCH J2026.5</div>
+    <div>✦ RA 18h 36m 56s | DEC +38° 47′ 01″ | SIDEREAL TRACKING ACTIVE</div>
+  </div>
+
+  <!-- MAIN VIEWPORT -->
+  <main class="w-full max-w-lg mx-auto z-10 flex flex-col items-center text-center my-auto">
+
+    <!-- ==================== STAGE 1: CELESTIAL STARGATE CAPSULE ==================== -->
+    <div id="capsuleStage" class="flex flex-col items-center transition-all duration-700 ease-out py-6">
+      
+      <!-- Astrophysics Beacon Tag -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-cyan-300 text-xs font-mono font-semibold mb-6 shadow-[0_0_15px_rgba(34,211,238,0.25)] animate-pulse">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span>INTERSTELLAR TRANSMISSION: TARGET RITHIN</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-indigo-200 to-purple-300 font-mono">
+        Gravitational Wave Detected
+      </h1>
+      
+      <p class="text-slate-300 text-xs sm:text-sm max-w-xs mb-8 font-light">
+        Our deep space telescope intercepted an advance birthday signal across the multiverse for <span class="text-cyan-300 font-semibold font-mono">Rithin</span>.
+      </p>
+
+      <!-- 3D Celestial Core / Stargate Orb -->
+      <div id="stargateCore" onclick="openCelestialSurprise()" role="button" aria-label="Decode Cosmic Birthday Signal" class="cursor-pointer group relative p-8 transition transform hover:scale-105 active:scale-95 animate-pulse-glow">
+        
+        <!-- Glowing Quantum Nebula Halo -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 via-purple-600/30 to-pink-500/20 rounded-full blur-3xl group-hover:opacity-100 transition opacity-75"></div>
+
+        <!-- Stargate SVG with Orbiting Planetary Rings -->
+        <svg class="w-56 h-56 sm:w-64 sm:h-64 relative drop-shadow-[0_0_30px_rgba(56,189,248,0.5)] transition" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          
+          <!-- Outer Astrolabe Ring -->
+          <circle cx="120" cy="120" r="105" stroke="url(#celestialRingGrad)" stroke-width="2" stroke-dasharray="6 8" class="origin-center animate-spin-slow opacity-80"/>
+          
+          <!-- Middle Orbital Ring -->
+          <ellipse cx="120" cy="120" rx="95" ry="40" stroke="#38bdf8" stroke-width="1.8" stroke-opacity="0.7" transform="rotate(-30 120 120)" class="origin-center animate-spin-reverse"/>
+          
+          <!-- Second Inclined Orbit -->
+          <ellipse cx="120" cy="120" rx="95" ry="40" stroke="#c084fc" stroke-width="1.5" stroke-opacity="0.6" transform="rotate(45 120 120)"/>
+
+          <!-- Orbiting Planet Marker -->
+          <g transform="rotate(-30 120 120)">
+            <circle cx="215" cy="120" r="6" fill="#facc15" filter="url(#glowFilter)"/>
+            <circle cx="215" cy="120" r="10" stroke="#facc15" stroke-width="1" stroke-opacity="0.5"/>
+          </g>
+
+          <!-- Constellation lines in core -->
+          <line x1="85" y1="95" x2="120" y2="75" stroke="#93c5fd" stroke-width="1.5" stroke-opacity="0.6"/>
+          <line x1="120" y1="75" x2="155" y2="105" stroke="#93c5fd" stroke-width="1.5" stroke-opacity="0.6"/>
+          <line x1="155" y1="105" x2="135" y2="150" stroke="#93c5fd" stroke-width="1.5" stroke-opacity="0.6"/>
+          <line x1="135" y1="150" x2="90" y2="140" stroke="#93c5fd" stroke-width="1.5" stroke-opacity="0.6"/>
+          <line x1="90" y1="140" x2="85" y2="95" stroke="#93c5fd" stroke-width="1.5" stroke-opacity="0.6"/>
+
+          <!-- Core Star Sphere -->
+          <circle cx="120" cy="120" r="54" fill="url(#coreGradient)" stroke="#67e8f9" stroke-width="2.5"/>
+          
+          <!-- Inner Pulsar Core -->
+          <circle cx="120" cy="120" r="38" fill="url(#pulsarGradient)" filter="url(#glowFilter)"/>
+
+          <!-- Telescope Reticle Crosshair -->
+          <circle cx="120" cy="120" r="22" stroke="#ffffff" stroke-width="1" stroke-opacity="0.7" stroke-dasharray="2 3"/>
+          <line x1="120" y1="88" x2="120" y2="152" stroke="#ffffff" stroke-width="1" stroke-opacity="0.5"/>
+          <line x1="88" y1="120" x2="152" y2="120" stroke="#ffffff" stroke-width="1" stroke-opacity="0.5"/>
+          
+          <!-- Central Singularity / Star Core -->
+          <circle cx="120" cy="120" r="9" fill="#ffffff" filter="url(#glowFilter)"/>
+
+          <!-- Gradients and Filters -->
+          <defs>
+            <filter id="glowFilter" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="5" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+            <linearGradient id="celestialRingGrad" x1="0" y1="0" x2="240" y2="240">
+              <stop stop-color="#38bdf8"/>
+              <stop offset="0.5" stop-color="#a855f7"/>
+              <stop offset="1" stop-color="#ec4899"/>
+            </linearGradient>
+            <radialGradient id="coreGradient" cx="50%" cy="50%" r="50%">
+              <stop stop-color="#1e1b4b"/>
+              <stop offset="70%" stop-color="#0f172a"/>
+              <stop offset="100%" stop-color="#030712"/>
+            </radialGradient>
+            <radialGradient id="pulsarGradient" cx="50%" cy="50%" r="50%">
+              <stop stop-color="#a5f3fc"/>
+              <stop offset="45%" stop-color="#818cf8"/>
+              <stop offset="85%" stop-color="#312e81"/>
+              <stop offset="100%" stop-color="#0f172a"/>
+            </radialGradient>
+          </defs>
+        </svg>
+
+        <!-- Tap hint -->
+        <div class="mt-4 flex items-center justify-center space-x-2 text-cyan-300 font-mono font-semibold text-xs tracking-wider">
+          <span class="animate-ping inline-block w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>TOUCH CELESTIAL CORE TO DECODE</span>
+          <span class="animate-ping inline-block w-2 h-2 rounded-full bg-cyan-400"></span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==================== STAGE 2: ASTROPHYSICS & STARGAZING CARD ==================== -->
+    <div id="cardStage" class="hidden opacity-0 translate-y-8 transition-all duration-700 ease-out w-full flex flex-col items-center">
+      
+      <!-- Stargate Glass Card -->
+      <div class="stargate-card w-full rounded-3xl p-6 sm:p-8 relative overflow-hidden text-center border border-cyan-400/40">
+        
+        <!-- Glowing Supernova Background Aura -->
+        <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-32 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 right-0 w-36 h-36 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Astrodynamics Coordinate Badge -->
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-cyan-950/70 border border-cyan-400/40 text-[11px] font-mono text-cyan-300 uppercase tracking-widest mb-3">
+          <span>🔭</span>
+          <span>SPECIAL RELATIVITY // T - 00:00:00</span>
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="font-script text-4xl sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-indigo-100 to-purple-300 drop-shadow-[0_0_20px_rgba(103,232,249,0.5)] my-1">
+          Advance Happy Birthday!
+        </h1>
+
+        <!-- Recipient Name Holder with Astrophysics Crown -->
+        <h2 id="recipientName" class="text-3xl sm:text-4xl font-extrabold text-white tracking-wider font-mono mb-2 flex items-center justify-center gap-2">
+          <span>RITHIN</span>
+          <span class="text-2xl text-cyan-400 animate-pulse">✨</span>
+        </h2>
+
+        <!-- PHOTO CONTAINER: Celestial Stargazer Orbit Frame -->
+        <div id="photoContainer" class="my-4 flex flex-col items-center justify-center">
+          <div class="relative group">
+            
+            <!-- Orbiting Satellite / Astronaut Icon -->
+            <div class="absolute -top-7 -right-3 text-3xl z-20 animate-wiggle select-none pointer-events-none filter drop-shadow-[0_0_8px_#38bdf8]">
+              👨‍🚀
+            </div>
+
+            <!-- Stargazer Observatory Telescope Icon left -->
+            <div class="absolute -bottom-2 -left-3 text-2xl z-20 select-none pointer-events-none filter drop-shadow-[0_0_8px_#c084fc]">
+              🔭
+            </div>
+
+            <!-- Saturn Planetary Ring Graphic behind photo -->
+            <div class="absolute -inset-4 rounded-full border border-cyan-400/40 border-dashed animate-spin-celestial pointer-events-none"></div>
+            
+            <!-- Photo Frame with Cosmic Glow -->
+            <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full p-1.5 bg-gradient-to-tr from-cyan-400 via-indigo-500 to-purple-600 shadow-[0_0_25px_rgba(56,189,248,0.5)] overflow-hidden flex items-center justify-center bg-slate-950">
+              <img id="friendPhoto" 
+                   src="rithin.jpg" 
+                   alt="Rithin's Photo" 
+                   onerror="this.onerror=null; this.src='WhatsApp Image 2026-11-06 at 2.30.46 PM.jpeg';" 
+                   class="w-full h-full object-cover rounded-full border-2 border-cyan-300/80 transition-transform duration-500 group-hover:scale-110">
+            </div>
+
+            <!-- Astrophysics Title Badge -->
+            <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 text-[10px] font-mono font-black uppercase px-3 py-0.5 rounded-full shadow-lg whitespace-nowrap border border-cyan-200 tracking-wider">
+              ⭐ MASTER OF THE COSMOS ⭐
+            </span>
+          </div>
+        </div>
+
+        <!-- Custom Astrophysics & Stargazing Birthday Note -->
+        <div class="stargate-card rounded-2xl p-4 my-4 max-w-md mx-auto border border-cyan-500/30 text-left bg-slate-950/70">
+          <p id="customMessage" class="text-slate-200 text-xs sm:text-sm leading-relaxed font-light">
+            Across <span class="text-cyan-300 font-semibold font-mono">93 billion light-years</span> of observable spacetime, through 2 trillion galaxies and quadrillions of stellar bodies, there is only one cosmic legend like you!
+            <br><br>
+            May your upcoming orbital cycle shine brighter than a supernova, bend space-time with milestone achievements, and bring an eternity of clear nights for stargazing. 🪐✨
+            <br>
+            <span class="text-amber-300 font-mono text-[11px] sm:text-xs font-semibold mt-2 block">
+              ⚛️ Note: By laws of special relativity, early birthday wishes mathematically guarantee the first piece of birthday cake! 🍰
+            </span>
+          </p>
+        </div>
+
+        <!-- INTERACTIVE CELESTIAL STARDUST CAKE -->
+        <div class="my-4 flex flex-col items-center">
+          <div class="text-xs text-cyan-200 font-mono mb-3 flex items-center gap-1.5 bg-cyan-950/80 px-3.5 py-1 rounded-full border border-cyan-400/40">
+            <span>✨</span>
+            <span id="candleInstruction">Blow out the starlight plasma candles & seal your cosmic wish!</span>
+          </div>
+
+          <!-- The Celestial Stargazing Cake -->
+          <div class="relative w-56 sm:w-64 h-36 flex flex-col items-center justify-end select-none">
+            
+            <!-- 3 Plasma Starlight Candles -->
+            <div class="flex justify-center space-x-8 mb-1 z-20">
+              <!-- Candle 1: Pulsar Cyan -->
+              <div class="candle cursor-pointer flex flex-col items-center" onclick="extinguishCandle(this)">
+                <div class="plasma-flame w-3.5 h-6 rounded-full mb-1"></div>
+                <div class="w-3 h-8 bg-gradient-to-b from-cyan-300 to-blue-600 rounded-t-sm shadow-sm border-t border-white/70"></div>
+              </div>
+              <!-- Candle 2: Supernova Amber (Center) -->
+              <div class="candle cursor-pointer flex flex-col items-center" onclick="extinguishCandle(this)">
+                <div class="plasma-flame w-4 h-7 rounded-full mb-1" style="background: radial-gradient(ellipse at bottom, #fff 0%, #fef08a 40%, #f59e0b 80%, #ef4444 100%); box-shadow: 0 0 18px #f59e0b;"></div>
+                <div class="w-3.5 h-10 bg-gradient-to-b from-amber-200 to-purple-600 rounded-t-sm shadow-sm border-t border-white/70"></div>
+              </div>
+              <!-- Candle 3: Nebula Violet -->
+              <div class="candle cursor-pointer flex flex-col items-center" onclick="extinguishCandle(this)">
+                <div class="plasma-flame w-3.5 h-6 rounded-full mb-1"></div>
+                <div class="w-3 h-8 bg-gradient-to-b from-purple-300 to-indigo-700 rounded-t-sm shadow-sm border-t border-white/70"></div>
+              </div>
+            </div>
+
+            <!-- Cake Tier 1 (Cosmic Nebula Frosting) -->
+            <div class="w-40 h-10 bg-gradient-to-r from-indigo-800 via-purple-700 to-indigo-800 rounded-t-xl relative z-10 shadow-inner flex items-center justify-around px-3 border-t border-cyan-400/50">
+              <span class="text-xs">✦</span>
+              <span class="text-xs text-cyan-300 font-mono text-[10px]">E = mc²</span>
+              <span class="text-xs">✦</span>
+            </div>
+
+            <!-- Cake Tier 2 (Deep Space Base with Constellations) -->
+            <div class="w-52 sm:w-56 h-14 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-xl relative shadow-2xl flex items-center justify-around px-4 border-2 border-cyan-500/40">
+              <div class="absolute inset-x-2 top-2 flex justify-between text-cyan-300 text-xs">
+                <span>🪐</span><span>✨</span><span>🔭</span><span>⭐</span><span>🌌</span>
+              </div>
+              <div class="absolute bottom-1 w-full text-center text-[10px] font-mono tracking-widest text-cyan-400 font-bold opacity-80">
+                • VOYAGER ORBITAL CLASS •
+              </div>
+            </div>
+
+            <!-- Cake Base Astrolabe Plate -->
+            <div class="w-60 sm:w-68 h-3.5 bg-gradient-to-r from-cyan-600 via-indigo-400 to-purple-600 rounded-full shadow-[0_0_15px_rgba(56,189,248,0.4)] -mt-1"></div>
+          </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-cyan-500/20">
+          <button onclick="blowCandles()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:scale-95 text-white font-mono font-semibold text-xs sm:text-sm shadow-[0_0_15px_rgba(6,182,212,0.4)] transition flex items-center justify-center gap-1.5 border border-cyan-300/40">
+            <span>💨</span> <span>Blow Out Starlight</span>
+          </button>
+          
+          <button onclick="fireSupernova()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 active:scale-95 text-white font-mono font-semibold text-xs sm:text-sm shadow-[0_0_15px_rgba(168,85,247,0.4)] transition flex items-center justify-center gap-1.5 border border-pink-300/40">
+            <span>🌟</span> <span>Supernova Burst!</span>
+          </button>
+        </div>
+
+        <!-- Customizer trigger -->
+        <div class="mt-4 pt-2">
+          <button onclick="toggleCustomizeModal()" class="text-xs font-mono text-cyan-400 hover:text-cyan-200 underline decoration-dotted transition">
+            ⚙️ Edit message or coordinates
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== CUSTOMIZE LINK MODAL ==================== -->
+  <div id="customizeModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="stargate-card max-w-sm w-full rounded-3xl p-6 text-left border border-cyan-400/40 shadow-2xl relative bg-slate-950/95">
+      <h3 class="text-base font-mono font-bold text-cyan-300 mb-2 flex items-center gap-2">
+        <span>🔭</span> Mission Parameters
+      </h3>
+      <p class="text-xs text-slate-300 mb-4 font-light">
+        Adjust recipient or telemetry to generate a customized interstellar link:
+      </p>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-mono font-semibold text-cyan-200 mb-1">Target Name</label>
+          <input id="inputFriendName" type="text" value="Rithin" placeholder="e.g. Rithin" class="w-full px-3.5 py-2 rounded-xl bg-cyan-950/50 border border-cyan-500/30 text-white placeholder-slate-400 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        </div>
+        <div>
+          <label class="block text-xs font-mono font-semibold text-cyan-200 mb-1">Transmission Message</label>
+          <textarea id="inputCustomMsg" rows="3" class="w-full px-3.5 py-2 rounded-xl bg-cyan-950/50 border border-cyan-500/30 text-white placeholder-slate-400 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-cyan-400">Across 93 billion light-years of observable spacetime, there is only one cosmic legend like you! May your upcoming orbital cycle shine brighter than a supernova and bring endless clear skies for stargazing. 🪐✨</textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-mono font-semibold text-cyan-200 mb-1">Image URL (Optional)</label>
+          <input id="inputPhotoUrl" type="text" placeholder="https://..." class="w-full px-3.5 py-2 rounded-xl bg-cyan-950/50 border border-cyan-500/30 text-white placeholder-slate-400 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        </div>
+      </div>
+
+      <div class="mt-5 flex gap-2">
+        <button onclick="generateCustomLink()" class="flex-1 py-2 px-3 bg-gradient-to-r from-cyan-500 to-indigo-600 rounded-xl font-mono font-bold text-xs text-white shadow-lg active:scale-95 transition border border-cyan-300/40">
+          Copy Link 📋
+        </button>
+        <button onclick="toggleCustomizeModal()" class="py-2 px-3.5 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-mono text-slate-300 transition">
+          Close
+        </button>
+      </div>
+
+      <!-- Feedback toast -->
+      <div id="copyToast" class="hidden mt-3 p-2 bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 text-xs rounded-xl text-center font-mono">
+        ✅ Interstellar link copied to clipboard!
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: High-Performance Dark Sky & Real Constellations Engine -->
+  <script>
+    const canvas = document.getElementById('skyMapCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = 0;
+    let height = 0;
+    let stars = [];
+    let meteors = [];
+    let rotationAngle = 0;
+
+    // Famous constellations with normalized celestial coordinates [x, y, brightness, name]
+    // Scaled across the night sky canvas
+    const constellationDefinitions = [
+      {
+        name: "URSA MAJOR (BIG DIPPER)",
+        color: "#38bdf8",
+        labelPos: [0.18, 0.12],
+        stars: [
+          [0.12, 0.15, 2.2, "Alkaid"],
+          [0.15, 0.18, 2.0, "Mizar"],
+          [0.19, 0.19, 1.8, "Alioth"],
+          [0.22, 0.22, 1.6, "Megrez"],
+          [0.21, 0.26, 1.9, "Phecda"],
+          [0.27, 0.27, 2.3, "Merak"],
+          [0.28, 0.22, 2.4, "Dubhe (α)"]
+        ],
+        lines: [
+          [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 3]
+        ]
+      },
+      {
+        name: "ORION (THE HUNTER)",
+        color: "#67e8f9",
+        labelPos: [0.82, 0.18],
+        stars: [
+          [0.78, 0.15, 2.8, "Betelgeuse (α)"], // Red supergiant
+          [0.86, 0.16, 2.2, "Bellatrix"],
+          [0.80, 0.22, 2.0, "Alnitak"],       // Belt
+          [0.82, 0.225, 2.1, "Alnilam"],      // Belt
+          [0.84, 0.23, 2.0, "Mintaka"],       // Belt
+          [0.79, 0.29, 1.8, "Saiph"],
+          [0.87, 0.28, 2.9, "Rigel (β)"]      // Blue supergiant
+        ],
+        lines: [
+          [0, 1], [0, 2], [1, 4], [2, 3], [3, 4], [2, 5], [4, 6], [5, 6]
+        ],
+        starColors: ["#f97316", "#a5f3fc", "#ffffff", "#ffffff", "#ffffff", "#93c5fd", "#38bdf8"]
+      },
+      {
+        name: "CASSIOPEIA",
+        color: "#c084fc",
+        labelPos: [0.12, 0.65],
+        stars: [
+          [0.08, 0.68, 2.2, "Caph (β)"],
+          [0.11, 0.72, 2.4, "Schedar (α)"],
+          [0.14, 0.69, 2.1, "Navi (γ)"],
+          [0.17, 0.73, 2.0, "Ruchbah (δ)"],
+          [0.20, 0.70, 1.9, "Segin (ε)"]
+        ],
+        lines: [
+          [0, 1], [1, 2], [2, 3], [3, 4]
+        ]
+      },
+      {
+        name: "TAURUS (ZODIAC)",
+        color: "#facc15",
+        labelPos: [0.84, 0.68],
+        stars: [
+          [0.78, 0.72, 2.8, "Aldebaran (α)"], // Red Giant
+          [0.82, 0.70, 1.8, "Ain"],
+          [0.85, 0.74, 2.0, "Hyadum"],
+          [0.88, 0.68, 2.1, "Elnath (β)"],
+          [0.91, 0.78, 1.9, "Tianguan"],
+          [0.76, 0.66, 1.6, "Pleiades Cluster"]
+        ],
+        lines: [
+          [0, 1], [1, 2], [0, 2], [1, 3], [2, 4]
+        ],
+        starColors: ["#f97316", "#ffffff", "#fef08a", "#67e8f9", "#ffffff", "#a5f3fc"]
+      },
+      {
+        name: "SCORPIUS (ZODIAC)",
+        color: "#f43f5e",
+        labelPos: [0.45, 0.82],
+        stars: [
+          [0.40, 0.86, 2.1, "Graffias"],
+          [0.42, 0.88, 2.0, "Dschubba"],
+          [0.46, 0.89, 2.9, "Antares (α)"], // Glowing heart of Scorpion
+          [0.50, 0.92, 2.2, "Larawag"],
+          [0.53, 0.95, 2.1, "Shaula (λ)"]
+        ],
+        lines: [
+          [0, 1], [1, 2], [2, 3], [3, 4]
+        ],
+        starColors: ["#ffffff", "#ffffff", "#ef4444", "#fef08a", "#67e8f9"]
+      },
+      {
+        name: "LEO (ZODIAC)",
+        color: "#38bdf8",
+        labelPos: [0.46, 0.12],
+        stars: [
+          [0.42, 0.15, 2.6, "Regulus (α)"],
+          [0.46, 0.18, 1.8, "Algieba"],
+          [0.48, 0.15, 2.0, "Zosma"],
+          [0.52, 0.18, 2.3, "Denebola (β)"],
+          [0.44, 0.22, 1.7, "Chertan"]
+        ],
+        lines: [
+          [0, 1], [1, 2], [2, 3], [3, 4], [4, 0]
+        ]
+      }
+    ];
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      initBackgroundStars();
+    }
+
+    // Populate 320 background celestial stars with spectral colors
+    function initBackgroundStars() {
+      stars = [];
+      const colors = ['#ffffff', '#a5f3fc', '#e0e7ff', '#fef08a', '#f9a8d4', '#fed7aa'];
+      for (let i = 0; i < 350; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.5 + 0.3,
+          alpha: Math.random() * 0.8 + 0.2,
+          speed: Math.random() * 0.015 + 0.004,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          isDiffractionStar: Math.random() < 0.08 // Bright telescope spike star
+        });
+      }
+    }
+
+    // Periodic shooting stars
+    function maybeSpawnMeteor() {
+      if (Math.random() < 0.015 && meteors.length < 3) {
+        meteors.push({
+          x: Math.random() * width * 0.8 + width * 0.1,
+          y: Math.random() * height * 0.4,
+          length: Math.random() * 120 + 80,
+          speed: Math.random() * 14 + 10,
+          angle: (Math.PI / 4) + (Math.random() * 0.2 - 0.1),
+          alpha: 1.0
+        });
+      }
+    }
+
+    // Draw Hubble/JWST 4-point diffraction spike on bright stars
+    function drawDiffractionSpike(x, y, length, color) {
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.45;
+      ctx.lineWidth = 1;
+
+      ctx.beginPath();
+      ctx.moveTo(x - length, y);
+      ctx.lineTo(x + length, y);
+      ctx.moveTo(x, y - length);
+      ctx.lineTo(x, y + length);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // Draw faint celestial coordinate lines (Astrophysics Declination & RA)
+    function drawCelestialCoordinateGrid() {
+      ctx.save();
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.07)";
+      ctx.lineWidth = 0.8;
+      ctx.setLineDash([4, 10]);
+
+      // Faint horizontal declination arcs
+      for (let y = 100; y < height; y += 180) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.bezierCurveTo(width * 0.3, y - 25, width * 0.7, y - 25, width, y);
+        ctx.stroke();
+      }
+
+      // Faint vertical right ascension arcs
+      for (let x = 120; x < width; x += 220) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.bezierCurveTo(x + 30, height * 0.5, x - 30, height, x, height);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    // Render constellations with connecting lines and labels
+    function drawConstellations() {
+      const now = Date.now() * 0.001;
+
+      constellationDefinitions.forEach((c) => {
+        // Draw Connecting Lines
+        ctx.save();
+        ctx.strokeStyle = c.color;
+        ctx.lineWidth = 1.2;
+        ctx.globalAlpha = 0.35 + Math.sin(now + c.labelPos[0] * 10) * 0.12;
+        ctx.shadowColor = c.color;
+        ctx.shadowBlur = 8;
+
+        c.lines.forEach(([i1, i2]) => {
+          const s1 = c.stars[i1];
+          const s2 = c.stars[i2];
+          ctx.beginPath();
+          ctx.moveTo(s1[0] * width, s1[1] * height);
+          ctx.lineTo(s2[0] * width, s2[1] * height);
+          ctx.stroke();
+        });
+        ctx.restore();
+
+        // Draw Star Nodes
+        c.stars.forEach((s, idx) => {
+          const sx = s[0] * width;
+          const sy = s[1] * height;
+          const starRadius = s[2];
+          const starColor = (c.starColors && c.starColors[idx]) ? c.starColors[idx] : c.color;
+
+          ctx.save();
+          // Halo glow
+          ctx.beginPath();
+          ctx.arc(sx, sy, starRadius * 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = starColor;
+          ctx.globalAlpha = 0.22;
+          ctx.fill();
+
+          // Core Star
+          ctx.beginPath();
+          ctx.arc(sx, sy, starRadius, 0, Math.PI * 2);
+          ctx.fillStyle = "#ffffff";
+          ctx.globalAlpha = 0.95;
+          ctx.shadowColor = starColor;
+          ctx.shadowBlur = 10;
+          ctx.fill();
+
+          // Diffraction spike for major stars
+          if (starRadius > 2.2) {
+            drawDiffractionSpike(sx, sy, starRadius * 9, starColor);
+          }
+
+          // Individual Star Name Label
+          ctx.font = "9px 'Space Grotesk', monospace";
+          ctx.fillStyle = "rgba(226, 232, 240, 0.65)";
+          ctx.fillText(s[3], sx + 8, sy + 3);
+
+          ctx.restore();
+        });
+
+        // Constellation Name Banner
+        ctx.save();
+        ctx.font = "bold 11px 'Space Grotesk', monospace";
+        ctx.fillStyle = c.color;
+        ctx.globalAlpha = 0.75;
+        ctx.shadowColor = c.color;
+        ctx.shadowBlur = 6;
+        ctx.fillText(`✦ ${c.name}`, c.labelPos[0] * width, c.labelPos[1] * height);
+        ctx.restore();
+      });
+    }
+
+    // Main Canvas Render Loop
+    function renderSky() {
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Draw subtle coordinate grid
+      drawCelestialCoordinateGrid();
+
+      // 2. Draw background twinkling stars
+      stars.forEach(s => {
+        s.alpha += s.speed;
+        if (s.alpha > 1 || s.alpha < 0.15) s.speed = -s.speed;
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = Math.max(0.1, Math.min(1, s.alpha));
+        ctx.shadowBlur = s.isDiffractionStar ? 8 : 3;
+        ctx.shadowColor = s.color;
+        ctx.fill();
+
+        if (s.isDiffractionStar && s.alpha > 0.6) {
+          drawDiffractionSpike(s.x, s.y, s.radius * 7, s.color);
+        }
+      });
+
+      // 3. Draw constellations, zodiacs and labels
+      drawConstellations();
+
+      // 4. Update & draw shooting stars
+      maybeSpawnMeteor();
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        const tailX = m.x - Math.cos(m.angle) * m.length;
+        const tailY = m.y - Math.sin(m.angle) * m.length;
+
+        const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+        grad.addColorStop(0, '#ffffff');
+        grad.addColorStop(0.3, '#38bdf8');
+        grad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+        ctx.save();
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2;
+        ctx.globalAlpha = m.alpha;
+        ctx.shadowColor = '#67e8f9';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(tailX, tailY);
+        ctx.stroke();
+        ctx.restore();
+
+        m.x += Math.cos(m.angle) * m.speed;
+        m.y += Math.sin(m.angle) * m.speed;
+        m.alpha -= 0.02;
+
+        if (m.alpha <= 0 || m.x > width || m.y > height) {
+          meteors.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(renderSky);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    renderSky();
+
+    // Cosmic Synthesizer using Web Audio API
+    let audioCtx = null;
+    let isMuted = false;
+    let opened = false;
+    let candlesBlown = false;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playCosmicMelody() {
+      if (isMuted) return;
+      try {
+        const actx = getAudioContext();
+        const notes = [
+          { freq: 261.63, dur: 0.45, delay: 0.0 },
+          { freq: 392.00, dur: 0.45, delay: 0.28 },
+          { freq: 440.00, dur: 0.55, delay: 0.58 },
+          { freq: 587.33, dur: 0.55, delay: 0.95 },
+          { freq: 659.25, dur: 0.70, delay: 1.35 },
+          { freq: 783.99, dur: 1.10, delay: 1.80 }
+        ];
+
+        notes.forEach(n => {
+          const osc = actx.createOscillator();
+          const gain = actx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(n.freq, actx.currentTime + n.delay);
+
+          gain.gain.setValueAtTime(0.0001, actx.currentTime + n.delay);
+          gain.gain.exponentialRampToValueAtTime(0.2, actx.currentTime + n.delay + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + n.delay + n.dur);
+
+          osc.connect(gain);
+          gain.connect(actx.destination);
+
+          osc.start(actx.currentTime + n.delay);
+          osc.stop(actx.currentTime + n.delay + n.dur);
+        });
+      } catch (e) {}
+    }
+
+    function playWarpSound() {
+      if (isMuted) return;
+      try {
+        const actx = getAudioContext();
+        const osc = actx.createOscillator();
+        const gain = actx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(80, actx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, actx.currentTime + 0.4);
+
+        const filter = actx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(400, actx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(2400, actx.currentTime + 0.35);
+
+        gain.gain.setValueAtTime(0.3, actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.45);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(actx.destination);
+
+        osc.start();
+        osc.stop(actx.currentTime + 0.45);
+      } catch (e) {}
+    }
+
+    function playBlowSound() {
+      if (isMuted) return;
+      try {
+        const actx = getAudioContext();
+        const bufferSize = actx.sampleRate * 0.4;
+        const buffer = actx.createBuffer(1, bufferSize, actx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = actx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = actx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 520;
+
+        const gain = actx.createGain();
+        gain.gain.setValueAtTime(0.35, actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.38);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(actx.destination);
+
+        noise.start();
+      } catch (e) {}
+    }
+
+    function toggleMute() {
+      isMuted = !isMuted;
+      document.getElementById('soundIcon').textContent = isMuted ? '🔇' : '🔊';
+      document.getElementById('soundLabel').textContent = isMuted ? 'Muted' : 'Cosmic Sound';
+    }
+
+    function triggerSupernovaParticles() {
+      const colors = ['#38bdf8', '#c084fc', '#facc15', '#ffffff', '#e879f9'];
+
+      confetti({
+        particleCount: 140,
+        spread: 90,
+        origin: { y: 0.6 },
+        shapes: ['star', 'circle'],
+        colors: colors,
+        scalar: 1.2
+      });
+
+      confetti({
+        particleCount: 60,
+        angle: 60,
+        spread: 60,
+        origin: { x: 0 },
+        shapes: ['star'],
+        colors: colors
+      });
+
+      confetti({
+        particleCount: 60,
+        angle: 120,
+        spread: 60,
+        origin: { x: 1 },
+        shapes: ['star'],
+        colors: colors
+      });
+    }
+
+    function fireSupernova() {
+      playWarpSound();
+      triggerSupernovaParticles();
+    }
+
+    function openCelestialSurprise() {
+      if (opened) return;
+      opened = true;
+
+      playWarpSound();
+      playCosmicMelody();
+      triggerSupernovaParticles();
+
+      const core = document.getElementById('stargateCore');
+      core.classList.add('scale-125', 'opacity-0');
+
+      setTimeout(() => {
+        const capsuleStage = document.getElementById('capsuleStage');
+        const cardStage = document.getElementById('cardStage');
+
+        capsuleStage.classList.add('opacity-0', '-translate-y-8', 'pointer-events-none');
+
+        setTimeout(() => {
+          capsuleStage.classList.add('hidden');
+          cardStage.classList.remove('hidden');
+          void cardStage.offsetWidth;
+          cardStage.classList.remove('opacity-0', 'translate-y-8');
+          cardStage.classList.add('opacity-100', 'translate-y-0');
+
+          triggerSupernovaParticles();
+        }, 400);
+      }, 500);
+    }
+
+    function extinguishCandle(candleEl) {
+      const flame = candleEl.querySelector('.plasma-flame');
+      if (flame && !flame.classList.contains('extinguished')) {
+        flame.classList.add('extinguished');
+        playBlowSound();
+        spawnStardust(candleEl);
+        checkAllCandles();
+      }
+    }
+
+    function blowCandles() {
+      const candles = document.querySelectorAll('.candle');
+      candles.forEach((candle, idx) => {
+        setTimeout(() => {
+          extinguishCandle(candle);
+        }, idx * 130);
+      });
+    }
+
+    function spawnStardust(candleEl) {
+      const stardust = document.createElement('div');
+      stardust.className = 'stardust-smoke';
+      candleEl.appendChild(stardust);
+      setTimeout(() => stardust.remove(), 1300);
+    }
+
+    function checkAllCandles() {
+      const remaining = document.querySelectorAll('.plasma-flame:not(.extinguished)');
+      if (remaining.length === 0 && !candlesBlown) {
+        candlesBlown = true;
+        document.getElementById('candleInstruction').innerHTML = '🌟 Cosmic Wish Locked! Supernova Granted! 🌟';
+        triggerSupernovaParticles();
+        playCosmicMelody();
+      }
+    }
+
+    function checkUrlParameters() {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get('name');
+      const msg = params.get('msg');
+      const photo = params.get('photo');
+
+      if (name) {
+        document.getElementById('recipientName').innerHTML = `<span>${name.toUpperCase()}</span> <span class="text-2xl text-cyan-400 animate-pulse">✨</span>`;
+        document.title = `Advance Happy Birthday ${name}! 🔭🌌✨`;
+      }
+      if (msg) {
+        document.getElementById('customMessage').innerHTML = msg;
+      }
+      if (photo) {
+        document.getElementById('friendPhoto').src = photo;
+      }
+    }
+
+    function toggleCustomizeModal() {
+      const modal = document.getElementById('customizeModal');
+      modal.classList.toggle('hidden');
+    }
+
+    function generateCustomLink() {
+      const nameInput = document.getElementById('inputFriendName').value.trim();
+      const msgInput = document.getElementById('inputCustomMsg').value.trim();
+      const photoInput = document.getElementById('inputPhotoUrl').value.trim();
+
+      const url = new URL(window.location.origin + window.location.pathname);
+      if (nameInput) url.searchParams.set('name', nameInput);
+      if (msgInput) url.searchParams.set('msg', msgInput);
+      if (photoInput) url.searchParams.set('photo', photoInput);
+
+      const generatedUrl = url.toString();
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(generatedUrl).then(showToast).catch(() => copyFallback(generatedUrl));
+      } else {
+        copyFallback(generatedUrl);
+      }
+    }
+
+    function copyFallback(text) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast();
+      } catch (err) {}
+      document.body.removeChild(textArea);
+    }
+
+    function showToast() {
+      const toast = document.getElementById('copyToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toggleCustomizeModal();
+      }, 2000);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      checkUrlParameters();
+    });
+  </script>
+</body>
+</html>
