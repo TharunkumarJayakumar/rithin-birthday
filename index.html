@@ -198,9 +198,9 @@
 
   <!-- Audio control badge -->
   <div class="fixed top-4 right-4 z-50">
-    <button id="soundToggleBtn" onclick="toggleMute()" class="stargate-card px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold flex items-center space-x-1.5 hover:bg-white/10 transition shadow-lg border border-cyan-400/40 text-cyan-200">
+    <button id="soundToggleBtn" onclick="toggleMute()" class="stargate-card px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold flex items-center space-x-1.5 hover:bg-white/10 transition shadow-lg border border-cyan-400/40 text-cyan-200 animate-pulse">
       <span id="soundIcon">🔊</span>
-      <span id="soundLabel">Cosmic Sound</span>
+      <span id="soundLabel">Music: Tap to Test</span>
     </button>
   </div>
 
@@ -337,9 +337,9 @@
           <span class="text-2xl text-cyan-400 animate-pulse">✨</span>
         </h2>
 
-        <!-- PHOTO CONTAINER: Celestial Stargazer Orbit Frame -->
-        <div id="photoContainer" class="my-4 flex flex-col items-center justify-center">
-          <div class="relative group">
+        <!-- PHOTO CONTAINER: Celestial Stargazer Orbit Frame (Click to Zoom) -->
+        <div id="photoContainer" onclick="openPhotoModal()" role="button" aria-label="Tap to view photo" class="my-4 flex flex-col items-center justify-center cursor-pointer group">
+          <div class="relative">
             
             <!-- Orbiting Satellite / Astronaut Icon -->
             <div class="absolute -top-7 -right-3 text-3xl z-20 animate-wiggle select-none pointer-events-none filter drop-shadow-[0_0_8px_#38bdf8]">
@@ -355,7 +355,7 @@
             <div class="absolute -inset-4 rounded-full border border-cyan-400/40 border-dashed animate-spin-celestial pointer-events-none"></div>
             
             <!-- Photo Frame with Cosmic Glow -->
-            <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full p-1.5 bg-gradient-to-tr from-cyan-400 via-indigo-500 to-purple-600 shadow-[0_0_25px_rgba(56,189,248,0.5)] overflow-hidden flex items-center justify-center bg-slate-950">
+            <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full p-1.5 bg-gradient-to-tr from-cyan-400 via-indigo-500 to-purple-600 shadow-[0_0_25px_rgba(56,189,248,0.5)] overflow-hidden flex items-center justify-center bg-slate-950 transition transform group-hover:scale-105 group-active:scale-95">
               <img id="friendPhoto" 
                    src="rithin.jpg" 
                    alt="Rithin's Photo" 
@@ -368,6 +368,11 @@
               ⭐ MASTER OF THE COSMOS ⭐
             </span>
           </div>
+
+          <!-- Tap to Zoom Visual Hint -->
+          <span class="text-[10px] font-mono text-cyan-300/80 mt-3 group-hover:text-cyan-200 transition flex items-center gap-1 bg-cyan-950/60 px-2.5 py-0.5 rounded-full border border-cyan-400/30">
+            🔍 Tap photo to zoom
+          </span>
         </div>
 
         <!-- Custom Astrophysics & Stargazing Birthday Note -->
@@ -445,24 +450,71 @@
           </button>
         </div>
 
-        <!-- Customizer trigger -->
+        <!-- Replay Music Button -->
+        <div class="mt-3">
+          <button onclick="playCosmicMelody()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 active:scale-95 text-cyan-100 font-mono font-semibold text-xs sm:text-sm shadow-lg transition flex items-center justify-center gap-2 border border-cyan-400/40">
+            <span>🎵</span> <span>Play Cosmic Birthday Song</span> <span>✨</span>
+          </button>
+        </div>
+
+        <!-- Funny Friend Banter Note / Customizer trigger -->
         <div class="mt-4 pt-2">
-          <button onclick="toggleCustomizeModal()" class="text-xs font-mono text-cyan-400 hover:text-cyan-200 underline decoration-dotted transition">
-            ⚙️ Edit message or coordinates
+          <button onclick="toggleCustomizeModal()" class="text-xs font-mono text-amber-300/90 hover:text-amber-200 underline decoration-dotted transition">
+            💸 inum 10rupees sendpannala ivan 😂
           </button>
         </div>
       </div>
     </div>
   </main>
 
+  <!-- ==================== PHOTO ZOOM LIGHTBOX MODAL ==================== -->
+  <div id="photoModal" onclick="closePhotoModal(event)" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="stargate-card max-w-sm sm:max-w-md w-full rounded-3xl p-5 text-center border-2 border-cyan-400/50 shadow-[0_0_50px_rgba(56,189,248,0.4)] relative bg-slate-950/95" onclick="event.stopPropagation()">
+      
+      <!-- Close Button -->
+      <button onclick="closePhotoModal()" aria-label="Close" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-cyan-950 border border-cyan-400/50 text-cyan-300 hover:text-white flex items-center justify-center text-sm font-bold transition shadow-md">
+        ✕
+      </button>
+
+      <!-- Badge Header -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30 text-[10px] font-mono text-cyan-300 uppercase tracking-widest mb-3">
+        <span>👑</span> <span>COSMIC VIP: RITHIN</span> <span>⭐</span>
+      </div>
+
+      <!-- High-Res Zoomed Photo -->
+      <div class="relative w-full max-h-[60vh] overflow-hidden rounded-2xl border-2 border-cyan-400/40 shadow-2xl bg-black flex items-center justify-center">
+        <img id="zoomedPhoto" 
+             src="rithin.jpg" 
+             alt="Rithin High Definition" 
+             onerror="this.onerror=null; this.src='WhatsApp Image 2026-11-06 at 2.30.46 PM.jpeg';" 
+             class="w-full h-auto max-h-[58vh] object-contain rounded-2xl">
+      </div>
+
+      <!-- Funny Caption -->
+      <div class="mt-3 text-center">
+        <h3 class="text-base font-mono font-bold text-white flex items-center justify-center gap-1.5">
+          <span>Rithin</span> <span class="text-xs text-cyan-400 font-normal">// 100% Star Material 🌟</span>
+        </h3>
+        <p class="text-[11px] text-slate-300 font-light mt-0.5">
+          Captured in maximum resolution across all celestial wavelengths!
+        </p>
+      </div>
+
+      <!-- Close hint -->
+      <button onclick="closePhotoModal()" class="mt-3.5 w-full py-2 px-3 rounded-xl bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-400/40 text-cyan-300 font-mono text-xs transition">
+        Tap to Close ✕
+      </button>
+    </div>
+  </div>
+
   <!-- ==================== CUSTOMIZE LINK MODAL ==================== -->
   <div id="customizeModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="stargate-card max-w-sm w-full rounded-3xl p-6 text-left border border-cyan-400/40 shadow-2xl relative bg-slate-950/95">
-      <h3 class="text-base font-mono font-bold text-cyan-300 mb-2 flex items-center gap-2">
-        <span>🔭</span> Mission Parameters
+      <h3 class="text-base font-mono font-bold text-amber-300 mb-2 flex items-center gap-2">
+        <span>💸</span> inum 10rupees sendpannala ivan 😂
       </h3>
       <p class="text-xs text-slate-300 mb-4 font-light">
-        Adjust recipient or telemetry to generate a customized interstellar link:
+        Advance birthday wish panniyachu, aana inum 10 rupees treat pending! You can also customize the message below:
       </p>
 
       <div class="space-y-3">
@@ -832,12 +884,14 @@
     resizeCanvas();
     renderSky();
 
-    // Cosmic Synthesizer using Web Audio API
+    // Robust Cosmic Web Audio Synthesizer
     let audioCtx = null;
     let isMuted = false;
     let opened = false;
     let candlesBlown = false;
+    let melodyTimeout = null;
 
+    // Mobile-friendly audio context initializer
     function getAudioContext() {
       if (!audioCtx) {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -849,56 +903,140 @@
       return audioCtx;
     }
 
+    // Auto-unlock Web Audio on first user interaction (touch or click)
+    function unlockAudio() {
+      const actx = getAudioContext();
+      if (actx && actx.state === 'suspended') {
+        actx.resume();
+      }
+    }
+    ['click', 'touchstart', 'touchend', 'pointerdown'].forEach(evt => {
+      document.addEventListener(evt, unlockAudio, { once: false, passive: true });
+    });
+
+    // Play a single rich cosmic synth note
+    function playSynthNote(freq, dur, delay, type = 'triangle', gainLevel = 0.45) {
+      if (isMuted) return;
+      try {
+        const actx = getAudioContext();
+        if (actx.state === 'suspended') actx.resume();
+
+        const startTime = actx.currentTime + delay;
+        const osc = actx.createOscillator();
+        const subOsc = actx.createOscillator(); // Sub-harmonic for rich body
+        const gain = actx.createGain();
+        const filter = actx.createBiquadFilter();
+
+        // Lead synth timbre
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, startTime);
+
+        // Sub octave sine wave for warm acoustic depth
+        subOsc.type = 'sine';
+        subOsc.frequency.setValueAtTime(freq * 0.5, startTime);
+
+        // Warm resonant lowpass filter
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1800, startTime);
+        filter.frequency.exponentialRampToValueAtTime(800, startTime + dur);
+
+        // Envelope: Fast attack, sustained warm body, smooth release
+        gain.gain.setValueAtTime(0.0001, startTime);
+        gain.gain.exponentialRampToValueAtTime(gainLevel, startTime + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + dur);
+
+        osc.connect(filter);
+        subOsc.connect(filter);
+        filter.connect(gain);
+        gain.connect(actx.destination);
+
+        osc.start(startTime);
+        subOsc.start(startTime);
+        osc.stop(startTime + dur);
+        subOsc.stop(startTime + dur);
+      } catch (e) {
+        console.warn('Audio playback error', e);
+      }
+    }
+
+    // Play full celebratory "Happy Birthday" cosmic synth song!
     function playCosmicMelody() {
       if (isMuted) return;
       try {
         const actx = getAudioContext();
-        const notes = [
-          { freq: 261.63, dur: 0.45, delay: 0.0 },
-          { freq: 392.00, dur: 0.45, delay: 0.28 },
-          { freq: 440.00, dur: 0.55, delay: 0.58 },
-          { freq: 587.33, dur: 0.55, delay: 0.95 },
-          { freq: 659.25, dur: 0.70, delay: 1.35 },
-          { freq: 783.99, dur: 1.10, delay: 1.80 }
+        if (actx.state === 'suspended') actx.resume();
+
+        // Musical frequencies (C Major scale)
+        const G4 = 392.00;
+        const A4 = 440.00;
+        const B4 = 493.88;
+        const C5 = 523.25;
+        const D5 = 587.33;
+        const E5 = 659.25;
+        const F5 = 698.46;
+        const G5 = 783.99;
+
+        const birthdayTheme = [
+          // "Happy Birthday to you"
+          { freq: G4, dur: 0.35, delay: 0.00 },
+          { freq: G4, dur: 0.35, delay: 0.38 },
+          { freq: A4, dur: 0.65, delay: 0.75 },
+          { freq: G4, dur: 0.65, delay: 1.45 },
+          { freq: C5, dur: 0.65, delay: 2.15 },
+          { freq: B4, dur: 1.10, delay: 2.85 },
+
+          // "Happy Birthday to you"
+          { freq: G4, dur: 0.35, delay: 4.10 },
+          { freq: G4, dur: 0.35, delay: 4.48 },
+          { freq: A4, dur: 0.65, delay: 4.85 },
+          { freq: G4, dur: 0.65, delay: 5.55 },
+          { freq: D5, dur: 0.65, delay: 6.25 },
+          { freq: C5, dur: 1.10, delay: 6.95 },
+
+          // "Happy Birthday dear Rithin"
+          { freq: G4, dur: 0.35, delay: 8.20 },
+          { freq: G4, dur: 0.35, delay: 8.58 },
+          { freq: G5, dur: 0.75, delay: 8.95 },
+          { freq: E5, dur: 0.75, delay: 9.75 },
+          { freq: C5, dur: 0.75, delay: 10.55 },
+          { freq: B4, dur: 0.75, delay: 11.35 },
+          { freq: A4, dur: 1.20, delay: 12.15 },
+
+          // "Happy Birthday to you!"
+          { freq: F5, dur: 0.40, delay: 13.50 },
+          { freq: F5, dur: 0.40, delay: 13.92 },
+          { freq: E5, dur: 0.75, delay: 14.35 },
+          { freq: C5, dur: 0.75, delay: 15.15 },
+          { freq: D5, dur: 0.75, delay: 15.95 },
+          { freq: C5, dur: 1.60, delay: 16.75 },
         ];
 
-        notes.forEach(n => {
-          const osc = actx.createOscillator();
-          const gain = actx.createGain();
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(n.freq, actx.currentTime + n.delay);
-
-          gain.gain.setValueAtTime(0.0001, actx.currentTime + n.delay);
-          gain.gain.exponentialRampToValueAtTime(0.2, actx.currentTime + n.delay + 0.05);
-          gain.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + n.delay + n.dur);
-
-          osc.connect(gain);
-          gain.connect(actx.destination);
-
-          osc.start(actx.currentTime + n.delay);
-          osc.stop(actx.currentTime + n.delay + n.dur);
+        birthdayTheme.forEach(note => {
+          playSynthNote(note.freq, note.dur, note.delay, 'triangle', 0.48);
         });
-      } catch (e) {}
+      } catch (err) {}
     }
 
+    // Stargate Hyperspace Warp whoosh effect
     function playWarpSound() {
       if (isMuted) return;
       try {
         const actx = getAudioContext();
+        if (actx.state === 'suspended') actx.resume();
+
         const osc = actx.createOscillator();
         const gain = actx.createGain();
 
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(80, actx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(880, actx.currentTime + 0.4);
+        osc.frequency.setValueAtTime(110, actx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(950, actx.currentTime + 0.35);
 
         const filter = actx.createBiquadFilter();
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(400, actx.currentTime);
-        filter.frequency.exponentialRampToValueAtTime(2400, actx.currentTime + 0.35);
+        filter.frequency.setValueAtTime(500, actx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(3200, actx.currentTime + 0.3);
 
-        gain.gain.setValueAtTime(0.3, actx.currentTime);
+        gain.gain.setValueAtTime(0.5, actx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.45);
 
         osc.connect(filter);
@@ -910,11 +1048,14 @@
       } catch (e) {}
     }
 
+    // Stellar Candle blowout breath sound
     function playBlowSound() {
       if (isMuted) return;
       try {
         const actx = getAudioContext();
-        const bufferSize = actx.sampleRate * 0.4;
+        if (actx.state === 'suspended') actx.resume();
+
+        const bufferSize = actx.sampleRate * 0.45;
         const buffer = actx.createBuffer(1, bufferSize, actx.sampleRate);
         const data = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) {
@@ -926,11 +1067,11 @@
 
         const filter = actx.createBiquadFilter();
         filter.type = 'bandpass';
-        filter.frequency.value = 520;
+        filter.frequency.value = 580;
 
         const gain = actx.createGain();
-        gain.gain.setValueAtTime(0.35, actx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.38);
+        gain.gain.setValueAtTime(0.45, actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.42);
 
         noise.connect(filter);
         filter.connect(gain);
@@ -940,10 +1081,23 @@
       } catch (e) {}
     }
 
+    // Instant Sound Toggle with feedback chime
     function toggleMute() {
+      const actx = getAudioContext();
+      if (actx.state === 'suspended') actx.resume();
+
       isMuted = !isMuted;
       document.getElementById('soundIcon').textContent = isMuted ? '🔇' : '🔊';
-      document.getElementById('soundLabel').textContent = isMuted ? 'Muted' : 'Cosmic Sound';
+      document.getElementById('soundLabel').textContent = isMuted ? 'Sound Off' : 'Playing Cosmic Music';
+
+      if (!isMuted) {
+        // Immediate confirmation sound
+        playSynthNote(523.25, 0.4, 0.0, 'triangle', 0.5); // C5
+        playSynthNote(783.99, 0.6, 0.15, 'triangle', 0.5); // G5
+        if (opened) {
+          playCosmicMelody();
+        }
+      }
     }
 
     function triggerSupernovaParticles() {
@@ -1063,6 +1217,26 @@
       if (photo) {
         document.getElementById('friendPhoto').src = photo;
       }
+    }
+
+    // Photo Zoom Lightbox Modal
+    function openPhotoModal() {
+      const modal = document.getElementById('photoModal');
+      const zoomed = document.getElementById('zoomedPhoto');
+      const mainPhoto = document.getElementById('friendPhoto');
+      if (mainPhoto && zoomed) {
+        zoomed.src = mainPhoto.src;
+      }
+      modal.classList.remove('hidden');
+      playSynthNote(523.25, 0.25, 0.0, 'sine', 0.4);
+    }
+
+    function closePhotoModal(e) {
+      if (e && e.target && e.target.id !== 'photoModal' && !e.target.closest('button')) {
+        return;
+      }
+      const modal = document.getElementById('photoModal');
+      modal.classList.add('hidden');
     }
 
     function toggleCustomizeModal() {
